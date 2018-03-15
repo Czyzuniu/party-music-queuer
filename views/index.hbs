@@ -1,2 +1,72 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Slabo" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Queuer</title>
+</head>
+<body>
+    <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo right">Logo</a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+    </div>
+    </nav>
+    <main id="wrapper">
+         <div class="row" style="width: 100%;">
+            <form class="col s12">
+              <div class="row">
+                <span class="col s3"></span>
+                <div class="input-field col s6">
+                  <i class="material-icons prefix">sentiment_very_satisfied</i>
+                  <input id="icon_prefix" type="text" class="validate">
+                  <label for="icon_prefix">Party Name</label>
+                </div>
+                <span class="col s3"></span>
+              </div>
+              <div class="row">
+                <span class="col s3"></span>
+                  <div class="input-field col s6">
+                    <i class="material-icons prefix">lock</i>
+                    <select>
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="ANYONE_JOIN">Anyone can join</option>
+                    </select>
+                    <label>Privacy options</label>
+                  </div>
+                <span class="col s3"></span>
+              </div>
+                <div>
+                    <span class="col s0"></span>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                    <span class="col s3"></span>
+                </div>
+            </form>
+          </div>
+    </main>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+</body>
+</html>
+
+
+
+<script>
+    
+  //materialize
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+
+</script>
+
+
+
