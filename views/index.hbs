@@ -2,7 +2,6 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Slabo" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Queuer</title>
@@ -20,38 +19,52 @@
     </nav>
     <main id="wrapper">
          <div class="row" style="width: 100%;">
-            <form class="col s12">
+            <form class="col s12" action="/createParty">
               <div class="row">
-                <span class="col s3"></span>
-                <div class="input-field col s6">
+                <div class="input-field col s12">
                   <i class="material-icons prefix">sentiment_very_satisfied</i>
-                  <input id="icon_prefix" type="text" class="validate">
-                  <label for="icon_prefix">Party Name</label>
+                  <input id="icon_prefix" type="text" name="partyName" class="validate" minlength="3" required>
+                  <label for="icon_prefix" class="partyNameLabel" data-error="Please enter minimum 3 characters" data-success="Great name!" >Party Name*</label>
                 </div>
-                <span class="col s3"></span>
               </div>
               <div class="row">
-                <span class="col s3"></span>
-                  <div class="input-field col s6">
-                    <i class="material-icons prefix">lock</i>
-                    <select>
-                        <option value="" disabled selected>Choose your option</option>
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">block</i>
+                    <select id="privacyOptions" name="privacyOptions">
                         <option value="ANYONE_JOIN">Anyone can join</option>
+                        <option value="PASSWORD_JOIN">Password protected</option>
                     </select>
-                    <label>Privacy options</label>
+                    <label>Privacy options*</label>
                   </div>
-                <span class="col s3"></span>
               </div>
-                <div>
-                    <span class="col s0"></span>
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                        <i class="material-icons right">send</i>
-                    </button>
-                    <span class="col s3"></span>
+              <div class="row hidden" id="passwordContainer" >
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">lock</i>
+                  <input id="icon_prefix" name="password" type="password" class="validate" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+                  <label for="icon_prefix" data-error="Passwords must have minimum eight characters, at least one letter and one number" data-success="Great!">Password*</label>
                 </div>
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">lock</i>
+                  <input id="icon_prefix" name="rePassword" type="password" class="validate">
+                  <label for="icon_prefix" data-error="Passwords do not match!" data-success="Perfect!">Repeat password*</label>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">date_range</i>
+                    <input type="text" class="datepicker">
+                    <label>When does it start?*</label>
+                  </div>
+              </div>
+              <div class="row">
+                <button class="btn waves-effect waves-light" type="submit" id="createParty">Create party
+                        <i class="material-icons right">send</i>
+                </button>
+              </div>
             </form>
           </div>
     </main>
+    <script type="text/javascript" src="/javascripts/index.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </body>
@@ -64,7 +77,16 @@
   //materialize
   $(document).ready(function() {
     $('select').material_select();
-  });
+
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year,
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Ok',
+        closeOnSelect: false // Close upon selecting a date,
+      });
+});
 
 </script>
 

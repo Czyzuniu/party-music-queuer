@@ -10,9 +10,14 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "^4.15.5",
+    "fs": "0.0.1-security",
     "hbs": "~4.0.1",
     "morgan": "~1.9.0",
+    "mysql": "^2.15.0",
+    "node-qr-image": "0.0.1",
     "nodemon": "^1.17.2",
-    "serve-favicon": "~2.4.5"
+    "password-hash": "^1.2.2",
+    "serve-favicon": "~2.4.5",
+    "unique-filename": "^1.1.0"
   }
 }
