@@ -90,4 +90,13 @@ window.addEventListener('load', () => {
         field.classList.add('invalid')
     }
 
+
+    $('#fromDate').change(() => {
+         $( "#fromTimeContainer" ).show("fast")
+    });
+
+    $('#thruDate').change(() => {
+         $( "#thruTimeContainer" ).show("fast")
+    });
+
 })

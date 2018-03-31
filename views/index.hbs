@@ -20,40 +20,62 @@
     <main id="wrapper">
          <div class="row" style="width: 100%;">
             <form class="col s12" action="/createParty">
-              <div class="row">
+              <div class="row white-text">
                 <div class="input-field col s12">
                   <i class="material-icons prefix">sentiment_very_satisfied</i>
                   <input id="icon_prefix" type="text" name="partyName" class="validate" minlength="3" required>
-                  <label for="icon_prefix" class="partyNameLabel" data-error="Please enter minimum 3 characters" data-success="Great name!" >Party Name*</label>
+                  <label class="white-text" for="icon_prefix" class="partyNameLabel" data-error="Please enter minimum 3 characters" data-success="Great name!" >Party Name*</label>
                 </div>
               </div>
-              <div class="row">
+              <div class="row white-text">
                   <div class="input-field col s12">
                     <i class="material-icons prefix">block</i>
                     <select id="privacyOptions" name="privacyOptions">
                         <option value="ANYONE_JOIN">Anyone can join</option>
                         <option value="PASSWORD_JOIN">Password protected</option>
                     </select>
-                    <label>Privacy options*</label>
+                    <label class="white-text">Privacy options*</label>
                   </div>
               </div>
-              <div class="row hidden" id="passwordContainer" >
-                <div class="input-field col s12">
-                  <i class="material-icons prefix">lock</i>
-                  <input id="icon_prefix" name="password" type="password" class="validate" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
-                  <label for="icon_prefix" data-error="Passwords must have minimum eight characters, at least one letter and one number" data-success="Great!">Password*</label>
-                </div>
-                <div class="input-field col s12">
-                  <i class="material-icons prefix">lock</i>
-                  <input id="icon_prefix" name="rePassword" type="password" class="validate">
-                  <label for="icon_prefix" data-error="Passwords do not match!" data-success="Perfect!">Repeat password*</label>
-                </div>
+              <div class="hidden" id="passwordContainer">
+                  <div class="row white-text">
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">lock</i>
+                      <input id="icon_prefix" name="password" type="password" class="validate" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+                      <label class="white-text" for="icon_prefix" data-error="Passwords must have minimum eight characters, at least one letter and one number" data-success="Great!">Password*</label>
+                    </div>
+                  </div>
+                  <div class="row white-text">
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">lock</i>
+                      <input id="icon_prefix" name="rePassword" type="password" class="validate">
+                      <label class="white-text" for="icon_prefix" data-error="Passwords do not match!" data-success="Perfect!">Repeat password*</label>
+                    </div>
+                  </div>
               </div>
-              <div class="row">
-                  <div class="input-field col s12">
+              <div class="row white-text">
+                  <div class="input-field col s6">
                     <i class="material-icons prefix">date_range</i>
-                    <input type="text" class="datepicker">
-                    <label>When does it start?*</label>
+                    <input id="fromDate" name="fromDate" type="text" class="datepicker">
+                    <label class="white-text" >What day is it on?*</label>
+                  </div>
+
+                  <div class="input-field col s6 hidden" id="fromTimeContainer">
+                    <i class="material-icons prefix">access_time</i>
+                    <input id="icon_prefix" name="fromTime" type="text" class="timepicker">
+                    <label class="white-text" for="icon_prefix">When does it start?*</label>
+                  </div>
+              </div>
+              <div class="row white-text">
+                  <div class="input-field col s6">
+                    <i class="material-icons prefix">date_range</i>
+                    <input id="thruDate" name="thruDate" type="text" class="datepicker">
+                    <label class="white-text" >When does it finish?*</label>
+                  </div>
+                  <div class="input-field col s6 hidden" id="thruTimeContainer">
+                    <i class="material-icons prefix">access_time</i>
+                    <input id="icon_prefix" name="thruTime" type="text" class="timepicker">
+                    <label class="white-text" for="icon_prefix">When does it finish?*</label>
                   </div>
               </div>
               <div class="row">
@@ -78,13 +100,44 @@
   $(document).ready(function() {
     $('select').material_select();
 
-    $('.datepicker').pickadate({
+    $('#fromDate').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 15, // Creates a dropdown of 15 years to control year,
         today: 'Today',
         clear: 'Clear',
         close: 'Ok',
-        closeOnSelect: false // Close upon selecting a date,
+        closeOnSelect: true, // Close upon selecting a date,
+        onSelect: function(d,i){
+            if(d !== i.lastVal){
+              $(this).change();
+            }
+        }
+      });
+
+    $('#thruDate').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year,
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Ok',
+        closeOnSelect: true, // Close upon selecting a date,
+        onSelect: function(d,i){
+            if(d !== i.lastVal){
+              $(this).change();
+            }
+        }
+      });
+
+     $('.timepicker').pickatime({
+        default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+        fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+        twelvehour: false, // Use AM/PM or 24-hour format
+        donetext: 'OK', // text for done-button
+        cleartext: 'Clear', // text for clear-button
+        canceltext: 'Cancel', // Text for cancel-button
+        autoclose: false, // automatic close timepicker
+        ampmclickable: true, // make AM PM clickable
+        aftershow: function(){} //Function for after opening timepicker
       });
 });
 
