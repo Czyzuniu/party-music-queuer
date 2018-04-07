@@ -59,7 +59,7 @@ router.get('/viewParty/:partyId', (req,res) => {
 		if (data.length) {
 			let results = data[0]
 			console.log(data)
-			res.render('viewParty',{party:results});
+			res.render('viewParty',{party:results, test:new Date()});
 		} else {
 			console.log('wwe')
 			res.render('notFound', {partyId: req.params.partyId});

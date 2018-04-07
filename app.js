@@ -4,10 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var helpers = require('handlebars-helpers')();
 var index = require('./routes/index');
 var users = require('./routes/users');
+var hbs = require('hbs');
 
+hbs.registerHelper('dateFormat', require('handlebars-dateformat'));
 var app = express();
 
 // view engine setup
