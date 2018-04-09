@@ -1,30 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel='stylesheet' href='/stylesheets/viewParty.css' />
-    <title>Queuer</title>
 </head>
 <body>
-    <nav>
-	    <div class="nav-wrapper">
-	      <a href="#" class="brand-logo right">Logo</a>
-	      <ul id="nav-mobile" class="left hide-on-med-and-down">
-	        <li><a href="sass.html">Sass</a></li>
-	        <li><a href="badges.html">Components</a></li>
-	        <li><a href="collapsible.html">JavaScript</a></li>
-	      </ul>
-	    </div>
-    </nav>
+
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo">Logo</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">Javascript</a></li>
+        <li><a href="mobile.html">Mobile</a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">Javascript</a></li>
+        <li><a href="mobile.html">Mobile</a></li>
+      </ul>
+    </div>
+  </nav>
     <main id="wrapper">
-	<div class="col s12 m7">
-		<h1>Party Name : {{party.party_name}}</h1>
-		<p>The server time is: {{dateFormat test "dddd, MMMM Do YYYY, hh:mm a"}}</p>
-	</div>
+        <input type="hidden" name="partyId" id="partyId" value="{{party.party_id}}">
+        <section id="party_info">
+            <section id="party_info_higher">
+                <h1>{{party.party_name}}</h1>
+                <p>{{dateFormat party.party_created_date "dddd, Do MMMM YYYY - HH:mm "}}</p>
+                {{#if party.party_password}}
+                    <div id="lock" class="center"><i class="material-icons big pointer">lock</i></div>
+                {{else}}
+                    <div id="lock" class="center"><i class="material-icons big pointer">lock_open</i></div>
+                {{/if}}
+            </section>
+            <section id="party_info_lower">
+            {{#if party.party_password}}
+<!--             <span id="info" class="centerMargin info">This party is private and requires password to enter</span> -->
+                <div class="input-field centerMargin" >
+                    <i class="material-icons prefix">lock</i>
+                    <input id="icon_prefix" class="password" type="password">
+                    <label>Enter password</label>
+                </div>
+            {{else}}
+<!--             <span id="info" class="centerMargin info">This party is public and does not require password to enter</span> -->
+            {{/if}}
+            <button class="btn waves-effect waves-light btn-large centerMargin" id="joinParty" type="submit" name="action">Join {{party.party_name}}
+                <i class="material-icons right">person_add</i>
+            </button>
+            </section>
+        </section>
+        <section id="party_image">
+            
+        </section>
     </main>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.js"></script>
+    <script type="text/javascript" src="/javascripts/viewParty.js"></script>
+
+    <script type="text/javascript">
+        $( document ).ready(function(){
+            $(".button-collapse").sideNav();
+        })
+            
+    </script>
 </body>
 </html>

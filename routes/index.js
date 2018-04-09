@@ -31,8 +31,9 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/createParty', function(req, res, next) {
-	//hash the password
+	   //hash the password
   	const hashedPassword = req.query.password ? passwordHash.generate(req.query.password) : ""
+
 
   	let fromDate = new Date(`${req.query.fromDate} ${req.query.fromTime}`)
   	let thruDate = new Date(`${req.query.thruDate} ${req.query.thruTime}`)
@@ -40,15 +41,20 @@ router.get('/createParty', function(req, res, next) {
   	const party = {
   		party_name: req.query.partyName,
   		party_password:hashedPassword,
-  		party_qr:generateQR('test'),
+      party_qr:"",
   		party_ending_date:dateIntoSql(thruDate),
   		party_created_date:dateIntoSql(fromDate)
   	}
 
   	insertRow("parties", party, (data) => {
   		if (data) {
+        const partyId = data.results.insertId
   			console.log(`party added with id ${data.results.insertId}`)
-  			res.redirect(`/viewParty/${data.results.insertId}`)
+        const qr = generateQR(`localhost:8080/viewParty/${data.results.insertId}`)
+        connection.query('UPDATE parties SET party_qr = ? WHERE party_id = ?', [qr, partyId], function (error, results, fields) {
+          if (error) throw error;
+            res.redirect(`/viewParty/${data.results.insertId}`)
+        });
   		}
   	})
 });
@@ -59,12 +65,30 @@ router.get('/viewParty/:partyId', (req,res) => {
 		if (data.length) {
 			let results = data[0]
 			console.log(data)
-			res.render('viewParty',{party:results, test:new Date()});
+			res.render('viewParty',{party:results});
 		} else {
 			console.log('wwe')
 			res.render('notFound', {partyId: req.params.partyId});
 		}
 	})
+})
+
+
+router.post('/joinParty', (req,res) => {
+  console.log(req.body)
+  queryDb([],'parties','party_id', req.body.id, (data) => {
+    let results = data[0]
+    const hashedPassword = results.party_password
+    const givenPassword = req.body.password
+
+    console.log(hashedPassword)
+
+    if (passwordHash.verify(givenPassword,hashedPassword)) {
+        console.log('good')
+    } else {
+      console.log('bad')
+    }
+  })
 })
 
 
